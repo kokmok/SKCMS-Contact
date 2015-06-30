@@ -31,7 +31,7 @@
 
 "twig/twig":                        "*",
 
-"doctrine/doctrine-bundle":         "*",
+"doctrine/doctrine-bundle":         "*"
 
 
 
