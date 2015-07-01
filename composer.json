@@ -40,11 +40,11 @@
 
 "autoload": {
 
-"psr-0": { "SKCMS\\Bundle\\ContactBundle":   "" }
+"psr-0": { "SKCMS\\ContactBundle":   "" }
 
 },
 
-"target-dir": "SKCMS/Bundle/ContactBundle",
+"target-dir": "SKCMS/ContactBundle",
 
 "minimum-stability":   "dev"
 
