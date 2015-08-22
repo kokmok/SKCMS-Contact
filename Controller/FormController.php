@@ -4,10 +4,29 @@ namespace SKCMS\ContactBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class FormController extends Controller
 {
-    public function indexAction($name)
+    
+    
+    public function postAction()
     {
-        return $this->render('SKCMSContactBundle:Default:index.html.twig', array('name' => $name));
+       $contactHandler = $this->get('skcms.contact.form');
+       $result = $contactHandler->get();
+       
+       $response = [];
+       if ($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse)
+       {
+           $response['status']=1;
+           
+       }
+       else
+       {
+           $response['status']=0;
+           $response['view']=$response;
+       }
+       
+       return new \Symfony\Component\HttpFoundation\JsonResponse($response);
     }
+    
+    
 }

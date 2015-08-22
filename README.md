@@ -46,7 +46,7 @@ skcms_admin:
 
 
 ## Usage
-###The form is globally accessible in twig with the var "contactForm"
+###The form is globally accessible in twig with the var "contactForm" in any page.
 To display the form you just have to write
 ```
 {{contactForm|raw}}

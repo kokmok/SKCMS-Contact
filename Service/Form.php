@@ -96,7 +96,7 @@ class Form
     
     private function analyseRequest()
     {
-        if ($this->request->getMethod() == 'POST') 
+        if ($this->request->getMethod() == 'POST' && $this->request->request->get('contactMessage')) 
         {
           
             $this->form->bind($this->request);
