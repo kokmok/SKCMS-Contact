@@ -30,6 +30,12 @@ abstract class ContactMessage
      /** @ORM\Column(type="text") */
     protected $message;
     
+    /**
+     *
+     * @ORM\Column(name="contactMessage",type="integer",length=1)
+     */
+    protected $contactMessage;
+    
     
     const STATUS_ANSWERED = 'answered';
     const STATUS_VIEWED = 'viewed';
@@ -43,6 +49,7 @@ abstract class ContactMessage
     {
         $this->date = new \DateTime();
         $this->status = self::STATUS_NEW;
+        $this->contactMessage = 1;
     }
     
     /**

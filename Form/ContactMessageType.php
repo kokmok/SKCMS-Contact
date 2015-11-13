@@ -18,6 +18,7 @@ class ContactMessageType extends AbstractType
 //            ->add('date')
             ->add('email')
             ->add('message')
+            
         ;
     }
     
