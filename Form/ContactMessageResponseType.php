@@ -16,7 +16,7 @@ class ContactMessageResponseType extends AbstractType
     {
         $builder
 //            ->add('date')
-            ->add('message','ckfinder')
+            ->add('message','ckeditor')
         ;
     }
     
