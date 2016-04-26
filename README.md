@@ -51,7 +51,7 @@ To display the form you just have to write
 ```
 {{contactForm|raw}}
 ```
-
+To theme this form you just have to override the bundle and create a file named 'theme.html.twig' in Resources/views/Form
 The submission and persistence of the message is full automatic.
 
 ###Override form view
