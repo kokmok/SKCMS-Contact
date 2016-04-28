@@ -130,6 +130,7 @@ class Form
                 );
                 $this->formSent = true;
 
+
                 $url = $this->router->generate($this->request->get('_route'),$this->request->get('_route_params'));
 
                 $this->response =  new \Symfony\Component\HttpFoundation\RedirectResponse($url);
