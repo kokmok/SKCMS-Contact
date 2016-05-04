@@ -17,7 +17,7 @@ use Twig_Environment;
 use Symfony\Component\DependencyInjection\Container;
 
 
-class Form
+class Form 
 {
     private $formFactory;
     private $twig;
@@ -30,8 +30,8 @@ class Form
     private $formSent = false;
     private $router;
     private $response;
-
-
+    
+    
     public function __construct(FormFactoryInterface $formFactory, \Twig_Environment $twig,Container $container)
     {
         $this->formFactory = $formFactory;
@@ -42,9 +42,13 @@ class Form
         $this->em = $doctrine->getManager();
         $this->session = $container->get('session');
         $this->router = $container->get('router');
-
+        
     }
 
+    public function isMessageAdded(){
+        return $this->formSent;
+    }
+    
     /*
      * return FormView
      */
@@ -54,18 +58,18 @@ class Form
         $this->analyseRequest();
         return $this->createContactFormView();
     }
-
+    
     public function createForm()
     {
         $entityClass = $this->container->getParameter('skcms.contact.entity');
         $this->contactMessage = new $entityClass;
-
+        
         $formClass = $this->container->getParameter('skcms.contact.form_type');
         $this->form = $this->formFactory->create(new $formClass,$this->contactMessage);
 
     }
-
-
+    
+    
     private function createContactFormView()
     {
         if ($this->response === null)
@@ -76,22 +80,22 @@ class Form
         {
             return $this->response;
         }
-
-
-
+        
+        
+       
     }
-
-
+    
+    
     private function createContactForm()
     {
-
+        
         $entityClass = $this->container->getParameter('skcms.contact.entity');
-        $this->message = new $entityClass;
-
+            $this->message = new $entityClass;
+        
         $formClass = $this->container->getParameter('skcms.contact.form_type');
         $this->form = $this->formFactory->create(new $formClass,$this->message);
-
-
+        
+        
     }
 
 
@@ -101,7 +105,6 @@ class Form
                 return true;
             }
             else{
-
                 foreach ($this->request->request->all() as $requestVarKey => $requestVarValue){
                     if (preg_match('#contactmessage#',$requestVarKey)){
                         return true;
@@ -116,41 +119,40 @@ class Form
     {
         if ($this->isContactRequest())
         {
-
+          
             $this->form->bind($this->request);
-
-            if ($this->form->isValid())
+          
+            if ($this->form->isValid()) 
             {
                 $this->em->persist($this->message);
                 $this->em->flush();
                 $this->sendNotificationMails();
                 $this->session->getFlashBag()->add(
-                    'skcms_contact',
-                    'skcms_contact_message_sent'
-                );
+                  'skcms_contact',
+                  'skcms_contact_message_sent'
+                  );
                 $this->formSent = true;
 
-
                 $url = $this->router->generate($this->request->get('_route'),$this->request->get('_route_params'));
-
+                
                 $this->response =  new \Symfony\Component\HttpFoundation\RedirectResponse($url);
 //                return $this->router->redirect($url);
-
+              
             }
             else
             {
                 $this->session->getFlashBag()->add(
-                    'skcms_contact',
-                    'skcms_contact_message_not_sent'
+                'skcms_contact',
+                'skcms_contact_message_not_sent'
                 );
                 $this->formSent = false;
             }
         }
     }
-
+    
     private function sendNotificationMails()
     {
-
+        
         if ($this->container->getParameter('skcms.contact.email_notification.enabled'))
         {
             $message = \Swift_Message::newInstance()
@@ -166,8 +168,8 @@ class Form
             ;
             $this->container->get('mailer')->send($message);
 
-        }
+        }        
     }
-
-
+    
+    
 }
