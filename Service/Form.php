@@ -161,7 +161,7 @@ class Form
                 ->setTo($this->container->getParameter('skcms.contact.email_notification.target'))
                 ->setBody(
                     $this->twig->render(
-                        'SKCMSContactBundle:Email:emailNotification.html.twig',['SKCMS_Contact_messageLink'=>$this->container->get('router')->generate('sk_admin_messageview', ['id'=>$this->message->getId()],true)]
+                        'SKCMSContactBundle:Email:emailNotification.html.twig',['message'=>$this->message,'SKCMS_Contact_messageLink'=>$this->container->get('router')->generate('sk_admin_messageview', ['id'=>$this->message->getId()],true)]
                     )
                     , 'text/html'
                 )
